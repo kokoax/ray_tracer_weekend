@@ -65,4 +65,10 @@ defmodule Vec3Test do
     ans1 = Vec3.new((v1.y*v2.z)-(v1.z*v2.y),(-(v1.x*v2.z))-(v1.z*v2.x),(v1.x*v2.y)-(v1.y*v2.x))
     assert Vec3.cross(v1,v2) == ans1
   end
+  test "unit vector test" do
+    v1 = Vec3.new(1.0,2.0,3.0)
+    s = :math.sqrt(14)
+    ans = Vec3.new(1.0/s,2.0/s,3.0/s)
+    assert Vec3.unit_vector(v1) == ans
+  end
 end

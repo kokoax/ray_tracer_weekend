@@ -1,7 +1,7 @@
 defmodule Vec3 do
   defstruct [e: [], x: 0.0, y: 0.0, z: 0.0, r: 0.0, g: 0.0, b: 0.0]
 
-  import Kernel, except: [+: 2, -: 2, -: 1, *: 2, /: 2]
+  import Kernel, except: [+: 2, -: 2, +: 1, -: 1, *: 2, /: 2]
   @e :erlang
   def new(e0, e1, e2) do
     %Vec3 {
@@ -48,8 +48,17 @@ defmodule Vec3 do
 
   def at(vec, num), do: vec.e |> Enum.at(num)
 
+  def make_unit_vector(v) do
+    k = @e./(1.0, Vec3.length(v))
+    Vec3.new(@e.*(v.x,k),@e.*(v.y,k),@e./(v.z,k))
+  end
+
+  def unit_vector(v) do
+    v / Vec3.length(v)
+  end
+
   def length(vec), do: vec |> squared_length |> :math.sqrt
-  def squared_length(%Vec3{e: [e0,e1,e2]}), do: e0*e0 + e1*e1 + e2*e2
+  def squared_length(%Vec3{e: [e0,e1,e2]}), do: @e.+(@e.+(@e.*(e0,e0), @e.*(e1,e1)), @e.*(e2,e2))
 
   def dump(%Vec3{e: [e0,e1,e2]}) do
     IO.puts "#{e0} #{e1} #{e2}"
