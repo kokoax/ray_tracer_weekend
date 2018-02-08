@@ -34,7 +34,6 @@ defmodule RayTracerWeekend do
       0..(@nx-1) |> Enum.map(fn(i) ->
         u = i/@nx
         v = (@ny-j-1)/@ny
-        # (u*horizontal) + (v*vertivcal) + lower_left_corner
         r = Ray.new(origin, u*horizontal + v*vertivcal + lower_left_corner)
         col = color(r)
         ir = trunc(255.99*col.r)
